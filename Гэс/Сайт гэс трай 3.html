@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мир ГЭС</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #3498db;
+            --accent-color: #2980b9;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: url('https://sdelanounas.ru/i/a/w/1/f_aW1nLmdlbGlvcGhvdG8uY29tL2hwcC9ocHBfNC5qcGc_X19pZD0xNjg0MzI=.jpeg') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 0.5rem auto;
+        }
+        .construction-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .construction-column .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .theory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .centered-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .centered-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .centered-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .centered-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pros, .cons {
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .pros {
+            background-color: #e8f6f3;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .cons {
+            background-color: #fdedec;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .pros h3, .cons h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .pros ul, .cons ul {
+            list-style-position: inside;
+        }
+        
+        .pros li, .cons li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border: 1px dashed #ccc;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 1024px) {
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .centered-card {
+                max-width: 100%;
+            }
+            .construction-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+        .gas-photo {
+    width: 100%; 
+    max-width: 800px; 
+    height: auto; 
+    border-radius: 10px; 
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Мир Гидроэнергетики</div>
+                <ul class="nav-links">
+                    <li><a href="#theory">Теория ГЭС</a></li>
+                    <li><a href="#construction">Строительство ГЭС</a></li>
+                    <li><a href="#unity">Интерактив</a></li>
+                    <li><a href="#profitability">Рентабельность</a></li>
+                    <li><a href="#comparison">Сравнение</a></li>
+                    <li><a href="#future">Перспективы</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+            <div class="hero-content">
+                <h1>Гидроэлектростанции: энергия воды в современном мире</h1>
+            </div>
+    </section>
+
+    <section id="theory">
+        <div class="container">
+            <h2>Теория гидроэлектростанций</h2>
+            <div class="theory-grid">
+                <div class="card">
+                    <h3>Что такое ГЭС?</h3>
+                    <p>Гидроэлектростанция (ГЭС) — это электростанция, преобразующая энергию водного потока в электрическую энергию. Основной принцип работы основан на использовании кинетической энергии падающей воды.</p>
+                </div>
+                <div class="card">
+                    <h3>Принцип работы</h3>
+                    <p>ГЭС использует потенциальную энергию воды, накопленную в водохранилище. Вода под давлением направляется на лопасти гидротурбины, которая приводит в действие генератор, вырабатывающий электричество.</p>
+                </div>
+            </div>
+            <div class="centered-cards">
+                <div class="centered-card">
+                    <h3>Типы ГЭС</h3>
+                    <ul>
+                        <li><strong>Приплотинные</strong> — наиболее распространенный тип, используют плотину для создания напора воды</li>
+                        <li><strong>Деривационные</strong> — используют естественный уклон реки, отводя воду через каналы или тоннели</li>
+                        <li><strong>Гидроаккумулирующие (ГАЭС)</strong> — накапливают энергию, перекачивая воду в верхний резервуар в периоды низкого спроса</li>
+                        <li><strong>Приливные</strong> — используют энергию приливов и отливов, устанавливаются в прибрежных зонах</li>
+                        <li><strong>Волновые</strong> — преобразуют энергию морских волн в электричество</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="construction" style="background-color: #fff;">
+        <div class="container">
+            <h2>Строительство ГЭС: этапы и инфраструктура</h2>
+            
+            <div class="centered-cards">
+                <div class="centered-card">
+                    <h3>Основные этапы строительства</h3>
+                    <p>Строительство ГЭС — это масштабный проект, который может длиться от 5 до 15 лет. Весь процесс можно разделить на несколько ключевых этапов.</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <div class="card">
+                            <h4>1. Подготовительный этап</h4>
+                            <ul>
+				<li><strong>1.1. Выбор места и обоснование (ТЭО - Технико-Экономическое Обоснование)</strong></li>
+                                <li><strong>Гидрологическое исследование:</strong> Изучение режима реки — расход воды, уровень паводков, количество осадков, ледовая обстановка.</li>
+                                <li><strong>Геологическое и геодезическое исследование:</strong>Изучение грунтов, сейсмичности района, рельефа долины. Бурятся скважины, берутся пробы грунта. Это критически важно для выбора типа плотины и её фундамента.
+
+</li>
+                                <li><strong>Экологическая экспертиза:</strong> Оценка воздействия на окружающую среду — затопление земель, изменение микроклимата, влияние на флору и фауну, миграцию рыб.</li>
+                                <li><strong>Социально-экономическая оценка:</strong> Изучение необходимости переселения людей из зоны будущего водохранилища, оценка влияния на инфраструктуру региона (дороги, линии электропередач).</li>
+				<li><strong>Экономический расчет: </strong>Определение предполагаемой мощности, стоимости строительства, сроков окупаемости.</li>
+				<li><strong>1.2. Разработка проекта </strong></li>
+				<li><strong>Создание Генерального плана: </strong>Определение компоновки всех сооружений ГЭС: плотины, здания ГЭС, водосбросов, судоподъемников (если нужны).</li>
+				<li><strong> Выбор типа плотины:</strong>На основе изысканий выбирается тип плотины:<br>
+				<p ><strong>Гравитационная</strong>(удерживается своим весом, из бетона или каменной наброски).</p>
+				<p ><strong>Арочная</strong>(передает давление воды на берега, требует скальных пород).</p>
+				<p ><strong>Контрфорсная</strong>(имеет ребра жесткости с тыльной стороны).</p>
+				<p ><strong>Земляная/каменно-набросная</strong>(самый распространенный тип для равнинных рек).</p>
+				</li>
+				<li><strong>Проектирование здания ГЭС: </strong>Определение количества, типа и мощности гидроагрегатов (турбин и генераторов), конструкции машинного зала.</li>
+				<li><strong>Проектирование вспомогательных сооружений: </strong>Водосбросы (поверхностные и глубинные), водоприемники, тоннели или трубопроводы (деривация), ОРУ (Открытое Распределительное Устройство).</li>
+				<li><strong>1.3. Подготовка территории </strong></li>
+				<li><strong>Строительство инфраструктуры: </strong> Прокладка дорог, ЛЭП, линий связи, возведение временных поселков для строителей, складов, бетонных заводов.</li>
+				<li><strong>Отвод реки: </strong> Создание временных обходных каналов (строительных туннелей или котлованов) для осушения основного русла реки и ведения работ на суше.
+
+</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>2. Основные строительные работы</h4>
+                            <ul>
+				<li><strong>2.1. Возведение плотины </strong></li>
+				<li><strong>Подготовка основания: </strong> Выемка грунта до коренных пород. Устройство противофильтрационного элемента ("зуб" или шпунтовая стенка), который будет препятствовать подмыву плотины.</li>
+				<li><strong>Строительство тела плотины: </strong>
+				<p><strong>Для бетонных плотин:</strong> Установка опалубки, непрерывная укладка бетона (с охлаждением для предотвращения трещин), монтаж арматуры. Используются гигантские бетоноукладчики.</p>
+				<p><strong>Для земляных/каменно-набросных плотин:</strong> Отсыпка и послойное уплотнение грунта или каменных блоков. Создание ядра из глины или диафрагмы из бетона для гидроизоляции.
+
+</p></li>
+                                <li><strong>Монтаж водосбросного оборудования:</strong> Установка затворов и механизмов для их управления.</li>
+                                <li><strong>2.2. Строительство здания ГЭС</strong></li>
+                                <li><strong>Земляные работы:</strong> Рытье котлована ниже уровня дна реки.</li>
+                                <li><strong>Возведение конструкций:</strong> Строительство фундамента, стен и перекрытий машинного зала. Часто здание ГЭС является частью плотины (приплотинные ГЭС).
+
+</li>
+				<li><strong>Монтаж технологического оборудования:</strong>
+				<p><strong>Гидротурбины</strong> (обычно радиально-осевые или поворотно-лопастные) — "сердце" ГЭС.</p>
+				<p><strong>Генераторы — </strong>преобразуют механическую энергию вращения турбины в электрическую.</p>
+				<p><strong>Трансформаторы —</strong> повышают напряжение для эффективной передачи на расстоянии.</p>
+				<p><strong>Системы управления и контроля (АСУ ТП) —</strong> комплекс автоматики для управления станцией.</p>
+				<p><strong>Мостовые краны</strong> грузоподъемностью в сотни тонн для монтажа и будущего ремонта оборудования.</p>
+				</li>
+				<li><strong>2.3. Создание водохранилища</strong></li>
+				<li>После возведения плотины на достаточную высоту начинается перекрытие русла реки (знаменитый этап, когда в реку сбрасывают огромные бетонные тетраэдры или камни).</li>
+				<li>Водохранилище начинает заполняться. Этот процесс может занимать от нескольких месяцев до нескольких лет в зависимости от его размера.</li>
+				<li>Проводятся работы по подготовке ложа водохранилища: вырубка леса, перенос или укрепление сооружений, санитарная подготовка территории.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>3. Завершающий (Пусконаладочные работы и ввод в эксплуатацию)</h4>
+                            <ul>
+                                <li><strong>3.1. Пусконаладочные работы</strong></li>
+                                <li><strong>Комплексные испытания:</strong> Проверка всех систем на холостом ходу и под нагрузкой.</li>
+                                <li><strong>Опробование гидроагрегатов:</strong> Первый пуск воды на турбину, раскрутка генератора, синхронизация с энергосистемой.</li>
+                                <li><strong>Настройка автоматики:</strong> Отладка систем управления, защиты и контроля.</li>
+				<li><strong>3.2. Ввод в эксплуатацию</strong></li>
+				<li><strong>Постепенный ввод гидроагрегатов:</strong> Обычно ГЭС запускается не вся сразу, а по очередности, начиная с первого агрегата.</li>
+				<li><strong>Сдача государственной комиссии:</strong>Официальное принятие станции в эксплуатацию после подписания всех актов.</li>
+				<li><strong>Выход на проектную мощность:</strong>Полное завершение строительства и монтажа всех запланированных агрегатов.</li>
+				<li><strong>3.3. Постоянная эксплуатация и мониторинг</strong></li>
+				<li>После ввода в строй начинается длительный этап эксплуатации, который включает:
+				<p>Постоянный мониторинг состояния плотины (деформации, фильтрация).</p>
+				<p>Планово-предупредительные ремонты оборудования.</p>
+				<p>Экологический мониторинг водохранилища и прилегающих территорий.</p>
+				</li>
+                            </ul>
+                        </div>
+			<div class="card">
+                            <h4>Сопутствующие работы (ведутся параллельно на всех этапах):</h4>
+                            <ul>
+				<li><strong>Строительство ЛЭП</strong> для выдачи мощности в энергосистему.</li>
+				<li><strong>Реконструкция инфраструктуры:</strong> перенос дорог, мостов, линий связи из зоны затопления.</li>
+				<li><strong>Социальные программы:</strong> переселение населения, компенсационные выплаты.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="theory-grid" style="margin-top: 3rem;">
+                <div class="card">
+                    <h3>Плотина и водохранилище</h3>
+                    <img src="Все фотки для сайта\Плотина и водохранилище.png" alt="Плотина и водохранилище" class="gas-photo">
+                    <p><strong>Плотина</strong> — создает перепад уровней воды (напор). Бывает гравитационной, арочной, каменно-набросной. <strong>Водохранилище</strong> — искусственный водоем, аккумулирующий воду и выравнивающий сток реки.</p>
+                </div>
+                <div class="card">
+                    <h3>Водоводы и затворы</h3>
+                    <img src="Все фотки для сайта\Водоводы и затворы.png" alt="Водоводы и затворы" class="gas-photo">
+                    <p><strong>Водоводы</strong> — система труб, тоннелей или каналов, подводящая воду от водохранилища к турбинам. <strong>Затворы</strong> — мощные металлические конструкции для полного перекрытия воды при ремонте.</p>
+                </div>
+                <div class="card">
+                    <h3>Гидротурбины</h3>
+                    <img src="Все фотки для сайта\Гидротурбины.png" alt="Гидротурбины" class="gas-photo">
+                    <p><strong>Основной двигатель ГЭС.</strong> Бывают двух основных типов: активтивные (ковшовые) и реактивные (радиально-осевые, поворотно-лопастные). Выбор зависит от напора и расхода воды.</p>
+                </div>
+                <div class="card">
+                    <h3>Генераторы и трансформаторы</h3>
+                    <img src="Все фотки для сайта\Генераторы и трансформаторы.png" alt="Генераторы и трансформаторы" class="gas-photo">
+                    <p><strong>Генератор</strong> — преобразует вращение турбины в электрический ток. <strong>Трансформатор</strong> — повышает напряжение тока для эффективной передачи на большие расстояния через ЛЭП.</p>
+                </div>
+                <div class="card">
+                    <h3>Система управления</h3>
+                    <img src="Все фотки для сайта\Система управления.png" alt="Система управления ГЭС" class="gas-photo">
+                    <p><strong>Центр управления</strong> — "мозг" станции. Компьютеризированная система в реальном времени контролирует все параметры: уровень воды, нагрузку на оборудование, выработку энергии.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="unity">
+        <div class="container">
+            <h2>Интерактив</h2>
+        </div>
+    </section>
+
+    <section id="profitability" style="background-color: #f5f7fa;">
+        <div class="container">
+            <h2>Рентабельность ГЭС в современном мире</h2>
+            <div class="card">
+                <h3>Экономические аспекты</h3>
+                <p>ГЭС являются одним из самых экономически эффективных источников электроэнергии после ввода в эксплуатацию. Хотя первоначальные инвестиции высоки, срок службы станций составляет 50-100 лет, а эксплуатационные расходы минимальны.</p>
+                
+                <div class="chart-container">
+                    <h4>Сравнение стоимости электроэнергии по источникам (USD/МВт·ч)</h4>
+                    <img src="Все фотки для сайта\График.png" alt="График рентабильности" class="gas-photo">
+                    </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>Преимущества ГЭС</h3>
+                    <ul>
+                        <li>Низкая себестоимость электроэнергии после строительства</li>
+                        <li>Долгий срок службы (50-100 лет)</li>
+                        <li>Возобновляемость источника энергии</li>
+                        <li>Отсутствие выбросов CO₂ в процессе работы</li>
+                        <li>Быстрая реакция на изменения нагрузки</li>
+                        <li>Многофункциональность (ирригация, водоснабжение, защита от наводнений)</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h3>Недостатки и вызовы</h3>
+                    <ul>
+                        <li>Высокие первоначальные инвестиции</li>
+                        <li>Длительные сроки строительства</li>
+                        <li>Экологические последствия для речных экосистем</li>
+                        <li>Вынужденное переселение населения</li>
+                        <li>Зависимость от климатических условий</li>
+                        <li>Накопление ила в водохранилищах</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparison">
+        <div class="container">
+            <h2>Сравнение с другими источниками энергии</h2>
+            <div class="card">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Параметр</th>
+                            <th>ГЭС</th>
+                            <th>ТЭС (уголь)</th>
+                            <th>АЭС</th>
+                            <th>Ветровая</th>
+                            <th>Солнечная</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Стоимость строительства ($/кВт)</td>
+                            <td>1500-5000</td>
+                            <td>2000-4000</td>
+                            <td>6000-9000</td>
+                            <td>1300-2500</td>
+                            <td>1000-3000</td>
+                        </tr>
+                        <tr>
+                            <td>Срок службы (лет)</td>
+                            <td>50-100</td>
+                            <td>30-50</td>
+                            <td>40-60</td>
+                            <td>20-25</td>
+                            <td>25-30</td>
+                        </tr>
+                        <tr>
+                            <td>Коэффициент использования (%)</td>
+                            <td>40-60</td>
+                            <td>70-90</td>
+                            <td>85-95</td>
+                            <td>25-45</td>
+                            <td>15-25</td>
+                        </tr>
+                        <tr>
+                            <td>Выбросы CO₂ (г/кВт·ч)</td>
+                            <td>4-20</td>
+                            <td>820-1150</td>
+                            <td>4-110</td>
+                            <td>7-56</td>
+                            <td>18-180</td>
+                        </tr>
+                        <tr>
+                            <td>Стоимость электроэнергии ($/МВт·ч)</td>
+                            <td>40-80</td>
+                            <td>65-150</td>
+                            <td>90-130</td>
+                            <td>30-60</td>
+                            <td>40-80</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="future" style="background-color: #f5f7fa;">
+        <div class="container">
+            <h2>Перспективы развития ГЭС</h2>
+            <div class="theory-grid">
+                <div class="card">
+                    <h3>Современные тенденции</h3>
+                    <p>В развитых странах потенциал крупных ГЭС практически исчерпан, поэтому акцент смещается на модернизацию существующих станций и развитие малых ГЭС. В развивающихся странах продолжается строительство крупных ГЭС.</p>
+                </div>
+                <div class="card">
+                    <h3>Инновационные технологии</h3>
+                    <ul>
+                        <li>Экологически безопасные турбины для рыб</li>
+                        <li>Плавающие ГЭС</li>
+                        <li>Интеграция с другими ВИЭ</li>
+                        <li>Умные системы управления</li>
+                        <li>Накопители энергии нового поколения</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>ГЭС и изменение климата</h3>
+                    <p>ГЭС играют важную роль в декарбонизации энергетики. Однако изменение климата создает новые вызовы: непредсказуемость осадков, таяние ледников и учащение экстремальных погодных явлений влияют на работу станций.</p>
+                </div>
+            </div>
+            <div class="centered-cards">
+                <div class="centered-card">
+                    <h3>Экономические перспективы</h3>
+                    <p>С ростом цен на ископаемое топливо и развитием технологий, рентабельность ГЭС продолжает улучшаться. Особенно перспективными считаются:</p>
+                    <ul>
+                        <li><strong>Малые ГЭС</strong> - менее затратные в строительстве и оказывающие меньшее воздействие на экосистемы</li>
+                        <li><strong>Модернизация существующих мощностей</strong> - установка более эффективных турбин и систем управления</li>
+                        <li><strong>Гибридные системы</strong> - комбинация ГЭС с солнечными и ветровыми электростанциями</li>
+                        <li><strong>ГЭС в развивающихся странах</strong> - где сохранился значительный неиспользованный гидропотенциал</li>
+                        <li><strong>Повышение эффективности</strong> - использование цифровых технологий для оптимизации работы станций</li>
+                    </ul>
+                    <p>Согласно прогнозам Международного энергетического агентства, к 2030 году гидроэнергетика сохранит свою долю в мировом производстве электроэнергии на уровне 16-17%, несмотря на быстрый рост других ВИЭ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Все о ГЭС | Информационный ресурс школы №5</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
